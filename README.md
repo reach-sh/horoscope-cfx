@@ -3,12 +3,12 @@
 #### 我们团队完成了一个支持社交挖矿的星座占卜DAPP，能够支持第三方预测师在线预测玩家的各种运势并打分，并且根据玩家选择的占卜时间和根据占卜时间所预测的各种运势生成相应的星座NFT，这些NFT都具有和玩家运势相同的属性（打分分数会刻印于NFT上）。占卜后的玩家会拥有一次通过质押NFT，配对社交的挖矿机会，玩家在质押NFT后在限定时间内与另一名玩家展开对话并根据规则获得社交挖矿奖励。
 
 ## 安装方法
-1. 安装reach相关环境：https://docs.reach.sh/tut-1.html
+1. 安装reach相关环境 (Intsalling reach and needed environments)：https://docs.reach.sh/tut-1.html
 2. clone repo 到本地
-3. 打开Linux系统命令行（windows下命令行输入`wsl`），进入到对应文件夹，输入`npm install`
-4. 输入 `npm run reach:compile-all` 编译文件
-5. 打开另一Linux命令行输入`REACH_CONNECTOR_MODE=CFX ./reach devnet` 连接conflux devnet（此命令行不能在程序运行期间关闭）
-5. 在第一次使用的命令行输入 `npm start` 运行应用
+3. 打开Linux系统命令行（windows下命令行输入wsl），进入到对应文件夹，输入npm install (use npm install in the root dic)
+4. 输入 npm run reach:compile-all 编译文件 (compile)
+5. 打开另一Linux命令行输入REACH_CONNECTOR_MODE=CFX ./reach devnet 连接conflux devnet（此命令行不能在程序运行期间关闭）(Connect to the devnet)
+6. 在第一次使用的命令行输入 npm start 运行应用 (APP starts)
 
 ## 原创性
 
