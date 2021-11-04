@@ -68,13 +68,11 @@ export const main = Reach.App(() => {
   SecBuyer.only(() => {
     interact.showPersonalInfo(personal_info_sec)
   })
-  Anybody.publish()
-  commit()
 
   FirBuyer.only(() => {
     interact.showPersonalInfo(personal_info_fir)
   })
-  Anybody.publish()
+  Oracle.publish()
 
 
   const k = "                                                                ";
@@ -108,7 +106,7 @@ export const main = Reach.App(() => {
           return [words, idx + 1];
         })
       )
-      .timeout(timeRemaining_one(), () => {Anybody.publish(); return [prevWords, idx] });
+      .timeout(timeRemaining_one(), () => {Oracle.publish(); return [prevWords, idx] });
 
   vNFT.owner1.set(FirBuyer);
   vNFT.owner2.set(SecBuyer);
