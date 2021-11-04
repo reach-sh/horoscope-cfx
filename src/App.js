@@ -192,8 +192,11 @@ class FirBuyer extends Player {
     setPersonalInfo(personalInfo) { this.setState({ view: 'Waiting' }); this.state.resolvePersonalInfo(personalInfo) }
 
 
-    async getWords(Dialog) {
-        const dialog = Dialog.join('\n')
+    async getWords(prevWords, idx) {
+        const oldDialog = (this.state && this.state.dialog) || [];
+        const dialogArr = oldDialog.split('\n');
+        if (idx > 0) { dialogArr[idx - 1] = prevWords; }
+        const dialog = dialogArr.join('\n');
         const Words = await new Promise(resolveWords => {
             this.setState({ view: 'getWords', dialog, resolveWords })
         });

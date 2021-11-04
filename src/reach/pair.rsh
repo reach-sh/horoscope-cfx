@@ -15,7 +15,7 @@ export const main = Reach.App(() => {
   const Buyer = {
     ...Player,
     getPersonalInfo: Fun([], Bytes(64)),
-    getWords: Fun([Array(Bytes(64), 20)], Bytes(64)),
+    getWords: Fun([Bytes(64), UInt], Bytes(64)),
     getScore: Fun([], UInt),
     showChatInfo: Fun([Bytes(64)], Null),
     getChatInfo: Fun([], Bytes(64)),
@@ -79,36 +79,36 @@ export const main = Reach.App(() => {
 
   const k = "                                                                ";
   const [timeRemaining_one, keepGoing_one] = makeDeadline(180);
-  const [dialog, idx] =
-    parallelReduce([Array.replicate(20, k), 0])
+  const [prevWords, idx] =
+    parallelReduce([k, 0])
       .invariant(balance() == 0)
       .while(keepGoing_one() && idx < 20)
       .case(FirBuyer,
         (() => {
           // interact.showDialog()
-          const words = declassify(interact.getWords(dialog))
+          const words = declassify(interact.getWords(prevWords, idx))
           return ({
             msg: words
           });
         }),
         ((words) => {
-          return [dialog.set(idx, words), idx + 1];
+          return [words, idx + 1];
         })
       )
       .case(SecBuyer,
         (() => {
           // interact.showDialog(dialog)
-          const words = declassify(interact.getWords(dialog))
+          const words = declassify(interact.getWords(prevWords, idx))
           return ({
 
             msg: words
           });
         }),
         ((words) => {
-          return [dialog.set(idx, words), idx + 1];
+          return [words, idx + 1];
         })
       )
-      .timeout(timeRemaining_one(), () => {Anybody.publish(); return [dialog, idx] });
+      .timeout(timeRemaining_one(), () => {Anybody.publish(); return [prevWords, idx] });
 
   vNFT.owner1.set(FirBuyer);
   vNFT.owner2.set(SecBuyer);
