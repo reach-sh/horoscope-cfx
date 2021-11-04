@@ -9,9 +9,8 @@ export const main = Reach.App(() => {
     informTimeout: Fun([], Null),
   };
 
-  // const Oracle = Participant('Oracle', {
-  //   ...Player,
-  // });
+  const Oracle = Participant('Oracle', {
+  });
 
   const Buyer = {
     ...Player,
@@ -44,8 +43,8 @@ export const main = Reach.App(() => {
   });
 
   deploy();
-
- 
+  Oracle.publish();
+  commit();
 
   
   // SecBuyer.interact.log('Fir:Im starting')

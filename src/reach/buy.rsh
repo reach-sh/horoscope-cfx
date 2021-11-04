@@ -62,6 +62,8 @@ export const main = Reach.App(() => {
 
 
   deploy();
+  Oracle.publish();
+  commit();
 
   const informTimeout = () => {
     each([Oracle, FirBuyer, SecBuyer], () => {
