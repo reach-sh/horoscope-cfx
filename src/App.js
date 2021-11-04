@@ -9,7 +9,7 @@ import * as buy from './reach/build/buy.main.mjs';
 import * as pair from './reach/build/pair.main.mjs';
 import * as rate from './reach/build/rate.main.mjs';
 import { loadStdlib } from '@reach-sh/stdlib';
-const reach = loadStdlib('CFX');
+const reach = loadStdlib({ REACH_CONNECTOR_MODE: 'CFX', REACH_DEBUG: 'yes'});
 const { standardUnit } = reach;
 const defaults = { defaultFundAmt: '100', standardUnit };
 reach.setProviderByName('TestNet');
@@ -26,6 +26,8 @@ class App extends React.Component {
         const now = await reach.getNetworkTime();
         reach.setQueryLowerBound(reach.sub(now, 500));
         const acc = await reach.getDefaultAccount();
+        acc.setGasLimit(5000000);
+        acc.setStorageLimit(2048 * 8);
         const balAtomic = await reach.balanceOf(acc);
         const bal = reach.formatCurrency(balAtomic, 4);
         this.setState({ acc, bal });
