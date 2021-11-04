@@ -84,18 +84,22 @@ class Oracle extends React.Component {
         const ctcPair= this.props.acc.deploy(pair)
         const ctcRate= this.props.acc.deploy(rate)
 
+        this.deadline = { ETH: 10, ALGO: 100, CFX: 1000 }[reach.connector];
+        const doneP = Promise.all([
+            buy.Oracle(ctcBuy, this),
+            pair.Oracle(ctcPair, this),
+            rate.Oracle(ctcRate, this),
+        ]);
+
         const infos = {
             info1: await ctcBuy.getInfo(),
             info2: await ctcPair.getInfo(),
             info3: await ctcRate.getInfo()
         };
 
-        this.deadline = { ETH: 10, ALGO: 100, CFX: 1000 }[reach.connector];
         const ctcInfoStr = JSON.stringify(infos, null, 2);
         this.setState({ view: 'WaitingForAttachers', ctcInfoStr });
-        await buy.Oracle(ctcBuy, this);
-        // await pair.Oracle(this.state.ctcPair, this);
-        await rate.Oracle(ctcRate, this);
+        await doneP;
     }
 
 
