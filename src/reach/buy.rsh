@@ -58,9 +58,6 @@ export const main = Reach.App(() => {
   });
 
 
-  setOptions({ deployMode: 'constructor', connectors: [ETH, ALGO] });
-
-
   deploy();
   Oracle.publish();
   commit();
